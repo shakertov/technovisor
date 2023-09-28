@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container my-5">
+	{% bootstrap_messages %}
+	<div class="card mb-2">
+		<div class="card-body">
+			<form action="{% url 'date' %}" method="post" class="form" novalidate>
+				{% csrf_token %}
+				{% bootstrap_form form %}
+
+				{% bootstrap_button button_type="submit" content="Сформировать отчёт" %}
+				{% bootstrap_button button_type="reset" content="Сбросить" %}
+			</form>
+		</div>
+	</div>
+	{% if total_dishes %}
+	<div class="card">
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Блюдо</th>
+						<th scope="col">Кол-во</th>
+						<th scope="col">Цена</th>
+						<th scope="col">Сумма</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for dish in total_dishes %}
+					<tr>
+						<th scope="row">{{ dish.id }}</th>
+						<td>{{ dish.title }}</td>
+						<td>{{ dish.dish_count }}</td>
+						<td>{{ dish.price }}</td>
+						<td>{{ dish.sum }}</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<th scope="row">#</th>
+						<td colspan="3">Общая сумма</td>
+						<td class="table-active">{{ total_dishes.first.totals }} руб.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if orders %}
+<div class="container my-5">
+	<div class="card">
+		<div class="card-body">
+			{% for order in orders %}
+			<h2>{{ order.date }}</h2>
+			<ol>
+				{% for o in order.list.all %}
+				<li>{{ o.dish.title }}</li>
+				{% endfor %}
+			</ol>
+			{% endfor %}
+		</div>
+	</div>
+	{% if orders.has_other_pages %}
+	<nav aria-label="Page navigation" class="my-5">
+		<ul class="pagination">
+			{% if orders.has_previous %}
+			<li class="page-item"><a class="page-link" href="?page=1">Последний заказ</a></li>
+			<li class="page-item">
+				<a class="page-link" href="?page={{ orders.previous_page_number }}">
+					Предыдущий
+				</a>
+			</li>
+			{% endif %}
+			{% for i in orders.paginator.page_range %}
+			{% if orders.number == i %}
+			<li class="page-item active">
+				<span class="page-link">{{ i }}</span>
+			</li>
+			{% else %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ i }}">{{ i }}</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+			{% if orders.has_next %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ orders.next_page_number }}">
+					Следующий
+				</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="?page={{ orders.paginator.num_pages }}">
+					Первый заказ
+				</a>
+			</li>
+			{% endif %}    
+		</ul>
+	</nav>
+	{% endif %}
+</div>
+{% else %}
+<div class="container my-5 p-5 border text-center">
+	<h2>У Вас нет заказов!</h2>
+</div>
+{% endif %}
+{% endblock %}
