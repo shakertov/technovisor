@@ -39,6 +39,8 @@ python -m venv venv
 . venv/bin/activate
 pip install -r requirements.txt
 ```
+База данных находится в репозитории. Данные пользователя:
+admin@admin.com admin admin
 
 ## Скриншоты проекта
 ![Форма с заказами](https://github.com/shakertov/technovisor/blob/main/images/1.png)
