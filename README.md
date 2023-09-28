@@ -41,3 +41,6 @@ pip install -r requirements.txt
 ```
 
 ## Скриншоты проекта
+![Форма с заказами](https://github.com/shakertov/technovisor/blob/main/images/1.png)
+![Отчёт по дате](https://github.com/shakertov/technovisor/blob/main/images/2.png)
+![Заказы пользователя](https://github.com/shakertov/technovisor/blob/main/images/3.png)
