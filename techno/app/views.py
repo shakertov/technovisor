@@ -63,10 +63,11 @@ def date(request):
 			total_dishes = DishModel.objects.filter(
 				list__order__date=date).annotate(
 				dish_count=Count('id'),
-				sum=F('price') * F('dish_count'),
-				totals=Value(DishModel.objects.filter(
-					list__order__date=date).aggregate(Sum('price'))['price__sum'], FloatField()))
+				sum=F('price') * F('dish_count'))
+			total_sum = DishModel.objects.filter(
+				list__order__date=date).aggregate(Sum('price'))['price__sum']
 			data['total_dishes'] = total_dishes
+			data['total_sum'] = total_sum
 			if total_dishes:
 				messages.info(request, 'Отчёт сформирован!')
 			else:
